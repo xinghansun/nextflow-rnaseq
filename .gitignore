@@ -1,0 +1,38 @@
+# Nextflow work and results
+work/
+result/
+.nextflow/
+!.nextflow/tests
+.cache/
+
+# Logs
+*.nextflow.log*
+*.trace
+*.timeline
+*.report
+
+# Data
+data/
+!data/test*
+
+# Environments
+.venv/
+.env/
+*.conda
+*.egg-info/
+
+# OS/editor
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+
+# Container images
+*.img
+*.sif
+
+# R
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata

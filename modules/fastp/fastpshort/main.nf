@@ -10,7 +10,7 @@ process fastp_short {
 	tuple val(sample_id), path(reads)
 
 	output:
-	tuple val(sample_id), path("*.fastp.fastq.gz"), emit: trimmed_reads
+	tuple val(sample_id), path("${sample_id}*.fastp.fastq.gz"), emit: trimmed_reads
 	tuple val(sample_id), path("${sample_id}.html"), emit: html
 	tuple val(sample_id), path("${sample_id}.json"), emit: json
 

@@ -8,7 +8,7 @@ process hisat2_align {
 
 	input:
 	tuple val(sample_id), path(reads)
-	path(index)
+	path index
 
 	output:
 	tuple val(sample_id), path("${sample_id}.hisat2.bam"), emit: bam

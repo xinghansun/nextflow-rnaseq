@@ -12,6 +12,10 @@ process salmon_quant {
 
 	output:
 	tuple val(sample_id), path("${sample_id}/quant.sf"), emit: quant
+	path("${sample_id}/cmd_info.json"), emit: cmd_info
+	path("${sample_id}/lib_format_counts.json"), emit: lib_format_counts
+	path("${sample_id}/logs/"), optional: true, emit: logs
+	path("${sample_id}/aux_info/"), optional: true, emit: aux_info
 
 	script:
 	def reads_syntax = (

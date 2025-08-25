@@ -36,3 +36,7 @@ Thumbs.db
 .Rapp.history
 .RData
 .Ruserdata
+
+# nf-test
+.nf-test/
+.nf-test.log

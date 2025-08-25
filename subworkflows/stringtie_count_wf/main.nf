@@ -3,7 +3,7 @@
 include { wget_ensemblegtf } from '../../modules/wget/ensemblegtf/main.nf'
 include { stringtie_count } from '../../modules/stringtie/count/main.nf'
 
-workflow hisat2_count_wf {
+workflow stringtie_count_wf {
 	take:
 	bam // channel: [ val(sample_id), bam ]
     bai // channel: [ val(sample_id), bai ]

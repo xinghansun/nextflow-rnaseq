@@ -11,7 +11,8 @@ process hisat2_align {
 	path index
 
 	output:
-	tuple val(sample_id), path("${sample_id}.hisat2.bam"), emit: bam
+	tuple val(sample_id), path("${sample_id}.hisat2.sorted.bam"), emit: bam
+	tuple val(sample_id), path("${sample_id}.hisat2.sorted.bam.bai"), emit: bai
 	tuple val(sample_id), path("${sample_id}.hisat2.summary"), emit: summary
 
 	script:
@@ -24,6 +25,7 @@ process hisat2_align {
 		-S ${sample_id}.hisat2.sam \\
 		-p ${task.cpus} \\
 		--summary-file ${sample_id}.hisat2.summary
-	samtools view -b -F 260 ${sample_id}.hisat2.sam > ${sample_id}.hisat2.bam
+	samtools view -b -F 260 ${sample_id}.hisat2.sam | samtools sort -o ${sample_id}.hisat2.sorted.bam
+	samtools index ${sample_id}.hisat2.sorted.bam
 	"""
 }

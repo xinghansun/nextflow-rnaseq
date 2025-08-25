@@ -5,6 +5,7 @@ include { fastp_short } from '../modules/fastp/fastpshort/main.nf'
 
 // import subworkflows
 include { hisat2_align_wf } from '../subworkflows/hisat2_align_wf/main.nf'
+include { hisat2_count_wf } from '../subworkflows/hisat2_count_wf/main.nf'
 include { salmon_pseudocount_wf } from '../subworkflows/salmon_pseudocount_wf/main.nf'
 
 params.sample_csv = '../data/paired-end.csv'
@@ -37,6 +38,7 @@ workflow {
 
 	// hisat2 alignment
 	hisat2_align_wf(fastp_short.out.trimmed_reads, ch_genomefa, params.hisat2_index)
+	hisat2_count_wf(hisat2_align_wf.out.bam, hisat2_align_wf.out.bai)
 
 	// salmon
 	salmon_pseudocount_wf(fastp_short.out.trimmed_reads, ch_genomefa)

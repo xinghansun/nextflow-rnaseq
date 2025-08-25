@@ -28,5 +28,6 @@ workflow hisat2_align_wf {
 
 	emit:
 	bam = hisat2_align.out.bam // channel: [ val(sample_id), bam ]
+	bai = hisat2_align.out.bai // channel: [ val(sample_id), bai ]
 	summary = hisat2_align.out.summary // channel: [val(sample_id), summary ]
 }

@@ -1,10 +1,10 @@
 #! /usr/bin/env nextflow
 
 process wget_v48transcript {
-	publishDir "result/salmon/ref"
+	publishDir "result/ref"
 	
 	output:
-		path 'gencode.v48.transcripts.fa.gz', emit: gencode_trans
+	path 'gencode.v48.transcripts.fa.gz', emit: gencode_trans
 
 	script:
 	"""

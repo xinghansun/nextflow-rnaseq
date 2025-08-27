@@ -14,6 +14,11 @@ result/
 # Data
 data/*
 !data/tests
+!data/decoys.txt
+!data/reads
+!data/genome.fa
+!data/paired-end.csv
+!data/single-end.csv
 
 # Environments
 .venv/

@@ -8,7 +8,7 @@ process tximport_count {
     input:
     val sample_ids
     path quant_files, stageAs: "?/*"
-    path gtf
+    path ensemble_gtf
 
     output:
     path "merged_gene_counts.tximport.tsv", emit: merged_counts
@@ -18,7 +18,7 @@ process tximport_count {
     Rscript ${moduleDir}/scripts/tximport_count.R \\
         -i ${quant_files.join(",")} \\
         -I ${sample_ids.join(",")} \\
-        -g ${gtf} \\
+        -g ${ensemble_gtf} \\
         -o merged_gene_counts.tximport.tsv
     """
 }

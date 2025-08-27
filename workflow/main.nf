@@ -2,7 +2,6 @@
 
 // import modules
 include { fastp_short } from '../modules/fastp/fastpshort/main.nf'
-include { tximport_count } from '../modules/tximport/count/main.nf'
 include { wget_ensemblegtf } from '../modules/wget/ensemblegtf/main.nf'
 
 // import subworkflows
@@ -38,21 +37,25 @@ workflow {
 	// fastp trim for short read
 	fastp_short(ch_fastq)
 
+	// prepare ensemble gtf reference
+	wget_ensemblegtf()
+	wget_ensemblegtf.out.ref_gtf
+		.set { ch_ensemble_gtf }
+
 	// hisat2 alignment and count
-	hisat2_align_wf(fastp_short.out.trimmed_reads, ch_genomefa, params.hisat2_index)
-	stringtie_count_wf(hisat2_align_wf.out.bam, hisat2_align_wf.out.bai)
+	hisat2_align_wf(
+		fastp_short.out.trimmed_reads, 
+		ch_genomefa, 
+		params.hisat2_index)
+	stringtie_count_wf(
+		hisat2_align_wf.out.bam, 
+		hisat2_align_wf.out.bai, 
+		ch_ensemble_gtf)
 
 	// salmon pseudoalignment count
-	salmon_pseudocount_wf(fastp_short.out.trimmed_reads, ch_genomefa)
+	salmon_pseudocount_wf(
+		fastp_short.out.trimmed_reads, 
+		ch_genomefa, 
+		ch_ensemble_gtf)
 
-	salmon_pseudocount_wf.out.quant
-		.collect { it[0] }
-		.set { ch_salmon_samples }
-	
-	salmon_pseudocount_wf.out.quant
-		.collect { it[1] }
-		.set { ch_salmon_quants }
-
-	wget_ensemblegtf()
-	tximport_count(ch_salmon_samples, ch_salmon_quants, wget_ensemblegtf.out.ref_gtf)
 }

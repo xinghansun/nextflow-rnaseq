@@ -18,5 +18,5 @@ workflow salmon_pseudocount_wf {
 	salmon_quant(ch_reads, ch_index)
 
 	emit:
-	qunat = salmon_quant.out.quant // channel: [ val(sample_id), path(quant.sf) ]
+	quant = salmon_quant.out.quant // channel: [ val(sample_id), path(quant.sf) ]
 }
